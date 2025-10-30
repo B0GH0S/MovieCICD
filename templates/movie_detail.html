@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>{{ movie.title }}</title>
+</head>
+<body>
+    <h2>{{ movie.title }} ({{ movie.release_year }})</h2>
+    
+    <p><a href="{% url 'index' %}">← Back to All Movies</a></p>
+
+    <div>
+        <p><strong>Director:</strong> {{ movie.director }}</p>
+        <p><strong>Release Year:</strong> {{ movie.release_year }}</p>
+        <p><strong>Genre:</strong> {{ movie.genre }}</p>
+        <p><strong>Rating:</strong> {{ movie.rating }}/10</p>
+        <p><strong>Duration:</strong> {{ movie.duration }} minutes</p>
+    </div>
+
+    <p>
+        <a href="{% url 'edit_movie' movie.id %}">Edit this movie</a> | 
+        <a href="{% url 'delete_movie' movie.id %}">Delete this movie</a>
+    </p>
+</body>
+</html>

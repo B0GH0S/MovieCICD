@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Edit {{ movie.title }}</title>
+</head>
+<body>
+    <h2>Edit Movie: {{ movie.title }}</h2>
+    
+    <p><a href="{% url 'movie_detail' movie.id %}">← Back to Movie Details</a></p>
+
+    <form method="POST">
+        {% csrf_token %} 
+        {{ form.as_p }}
+        <button type="submit">Update Movie</button>
+    </form>
+</body>
+</html>

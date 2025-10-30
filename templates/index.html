@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>Movie Database</title>
+</head>
+<body>
+    <h2>Movie Database Home</h2>
+
+    <p><a href="{% url 'add_movie' %}">Add New Movie</a></p>
+
+    <h3>All Movies:</h3>
+    {% if movies %}
+        <ul>
+        {% for movie in movies %}
+            <li>
+                <strong><a href="{% url 'movie_detail' movie.id %}">{{ movie.title }}</a></strong> ({{ movie.release_year }})
+                <br>
+                Director: {{ movie.director }} | Genre: {{ movie.genre }}
+                <br>
+                Rating: {{ movie.rating }}/10 | Duration: {{ movie.duration }} minutes
+                <br>
+                <small>
+                    <a href="{% url 'edit_movie' movie.id %}">Edit</a> | 
+                    <a href="{% url 'delete_movie' movie.id %}">Delete</a>
+                </small>
+            </li>
+            <hr>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>No movies in the database yet. <a href="{% url 'add_movie' %}">Add the first one!</a></p>
+    {% endif %}
+</body>
+</html>

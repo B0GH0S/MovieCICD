@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Add Movie</title>
+</head>
+<body>
+    <h2>Add New Movie</h2>
+    
+    <p><a href="{% url 'index' %}">← Back to Home</a></p>
+
+    <form method="POST">
+        {% csrf_token %} 
+        {{ form.as_p }}
+        <button type="submit">Add Movie</button>
+    </form>
+</body>
+</html>

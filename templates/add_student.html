@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Search Movies</title>
+</head>
+<body>
+<h2>Search Movies</h2>
+
+{% if search_performed %}
+    <h3>Search Results:</h3>
+    {% if movies %}
+        {% for movie in movies %}
+            <p>
+                <strong>{{ movie.title }}</strong> ({{ movie.release_year }})<br>
+                Director: {{ movie.director }} | Genre: {{ movie.genre }}<br>
+                Rating: {{ movie.rating }}/10 | Duration: {{ movie.duration }} minutes
+            </p>
+        {% endfor %}
+    {% else %}
+        <p>No movies found matching your search criteria.</p>
+    {% endif %}
+    <hr>
+{% endif %}
+
+<form method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Search Movies</button>
+</form>
+
+</body>
+</html>
