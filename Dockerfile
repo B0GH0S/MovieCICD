@@ -1,19 +1,24 @@
-FROM python:3.13-slim
+FROM python:3.11-slim
 
-ENV PYTHONDONTWRITEBYTECODE=1
-ENV PYTHONUNBUFFERED=1
+# Prevent Python from writing .pyc files and buffer output
+ENV PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1
 
 WORKDIR /app
 
+# Install only required system dependencies, then clean up
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    default-libmysqlclient-dev gcc pkg-config libc6-dev \
+    && rm -rf /var/lib/apt/lists/*
+
+# Install dependencies
 COPY requirements.txt .
+RUN pip install --no-cache-dir --upgrade pip \
+    && pip install --no-cache-dir -r requirements.txt
 
-RUN pip install --upgrade pip
-RUN pip install --no-cache-dir -r requirements.txt
-
+# Copy project files
 COPY . .
 
-RUN useradd -m -r appuser && chown -R appuser:appuser /app
-USER appuser
-
 EXPOSE 8000
+
 CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
