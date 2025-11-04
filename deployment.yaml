@@ -5,16 +5,16 @@ metadata:
 spec:
   replicas: 1
   selector:
-  matchLabels:
-    app: django-app
-template:
-  metadata:
-    labels:
+    matchLabels:
       app: django-app
-  spec:
-    containers:
-    - name: django-container
-      image: mydjangoapp:latest
-      imagePullPolicy: Never
-      ports:
-      - containerPort: 8000
+  template:
+    metadata:
+      labels:
+        app: django-app
+    spec:
+      containers:
+      - name: django-container
+        image: mydjangoapp:latest
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 8000
